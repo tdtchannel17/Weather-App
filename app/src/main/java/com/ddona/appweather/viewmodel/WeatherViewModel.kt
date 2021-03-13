@@ -51,4 +51,35 @@ class WeatherViewModel() : ViewModel() {
                 }
             )
     }
+
+    @SuppressLint("CheckResult")
+    fun getWeatherByName(name: String) {
+        apiWeather.getWeatherByName(name)
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    dataWeather.value = it
+                },
+                {
+                    Log.e("Error !!!", "----------------- " + it + " -----------------")
+                }
+            )
+    }
+
+    @SuppressLint("CheckResult")
+    fun getIntervalWeatherByName(name: String) {
+        apiWeather.getIntervalWeatherByName(name)
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    listDataWeather.value = it
+                    Log.d("listDataWeather :", "listDataWeather : " + listDataWeather.value)
+                },
+                {
+                    Log.e("Error !!!", "----------------- " + it + " -----------------")
+                }
+            )
+    }
 }

@@ -33,11 +33,11 @@
             app:setImageLink="@{data.weather[0].icon}" />
 
         <TextView
-            android:text="Rain"
-            app:setText="@{data.weather[0].description}"
-            android:textSize="16sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Rain"
+            android:textSize="16sp"
+            app:setText="@{data.weather[0].description}" />
 
         <LinearLayout
             android:layout_width="match_parent"
