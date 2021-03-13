@@ -189,7 +189,6 @@ class MainActivity : AppCompatActivity(), WeatherAdapter.IWaether,
                     repeatCall(latitude, longitude)
                 }
                 binding.progressbar.isGone = true
-                binding.mainContainer.isVisible = true
             }
         }
         val intent = Intent()
