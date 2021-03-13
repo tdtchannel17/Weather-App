@@ -130,12 +130,12 @@ class MainActivity : AppCompatActivity(), WeatherAdapter.IWaether,
     ) {
         if (requestCode == PERMISSION_ID) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                binding.disconnect.isGone = true
+                binding.tvAsk.isGone = true
                 binding.mainContainer.isVisible = true
                 binding.re1.isVisible = true
                 getLastLocation()
             } else {
-                binding.disconnect.isVisible = true
+                binding.tvAsk.isVisible = true
                 binding.mainContainer.isGone = true
                 binding.re1.isGone = true
                 requestPermission()
