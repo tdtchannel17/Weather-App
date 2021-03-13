@@ -26,7 +26,7 @@ import com.ddona.appweather.R
 import com.ddona.appweather.databinding.ActivityMainBinding
 import com.ddona.appweather.model.CurrentWeather
 import com.ddona.appweather.model.List
-import com.ddona.appweather.service.NotifyBroardcast
+import com.ddona.appweather.broardcast.NotifyBroardcast
 import com.ddona.appweather.service.WeatherService
 import com.ddona.appweather.ui.adapter.WeatherAdapter
 import com.google.android.gms.location.*

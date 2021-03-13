@@ -1,4 +1,4 @@
-package com.ddona.appweather.service
+package com.ddona.appweather.broardcast
 
 import android.content.BroadcastReceiver
 import android.content.Context
