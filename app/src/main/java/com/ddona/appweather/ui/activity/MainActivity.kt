@@ -51,6 +51,8 @@ class MainActivity : AppCompatActivity(), WeatherAdapter.IWaether,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.mainContainer.isGone = true
+        binding.progressbar.isVisible = true
 
         broadcast = NotifyBroardcast()
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
@@ -186,6 +188,8 @@ class MainActivity : AppCompatActivity(), WeatherAdapter.IWaether,
                 if (service!!.getListWeather().size == 0 && service!!.getDataWeather() == null) {
                     repeatCall(latitude, longitude)
                 }
+                binding.progressbar.isGone = true
+                binding.mainContainer.isVisible = true
             }
         }
         val intent = Intent()

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">App Weather</string>
     <string name="location">Location</string>
+    <string name="require_location">Please provide your location to use the application !!!</string>
 </resources>

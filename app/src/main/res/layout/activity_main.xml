@@ -17,8 +17,7 @@
             <RelativeLayout
                 android:id="@+id/main_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="visible">
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:id="@+id/address_container"
@@ -331,8 +330,15 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="32dp"
                 android:gravity="center"
-                android:text="Please provide your location to use the application !!!"
+                android:text="@string/require_location"
                 android:textSize="24sp"
+                android:visibility="gone" />
+
+            <ProgressBar
+                android:id="@+id/progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:visibility="gone" />
 
         </RelativeLayout>
