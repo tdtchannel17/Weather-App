@@ -27,17 +27,16 @@ class WeatherService : LifecycleService() {
         })
     }
 
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        super.onStartCommand(intent, flags, startId)
+        return START_STICKY
+    }
+
     override fun onBind(intent: Intent): IBinder {
         super.onBind(intent)
         return MyBinder(this)
 
     }
 
-    class MyBinder : Binder {
-        val service: WeatherService
-
-        constructor(service: WeatherService) {
-            this.service = service
-        }
-    }
+    class MyBinder(val service: WeatherService) : Binder()
 }

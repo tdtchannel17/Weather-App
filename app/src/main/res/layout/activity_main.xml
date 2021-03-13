@@ -15,31 +15,9 @@
             android:layout_height="match_parent">
 
             <RelativeLayout
-                android:id="@+id/re_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_margin="8dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignParentLeft="true"
-                    android:src="@drawable/setting" />
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/add" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
                 android:id="@+id/main_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/re_1"
                 android:visibility="visible">
 
                 <LinearLayout
@@ -353,9 +331,9 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="32dp"
                 android:gravity="center"
-                android:visibility="gone"
                 android:text="Please provide your location to use the application !!!"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:visibility="gone" />
 
         </RelativeLayout>
 

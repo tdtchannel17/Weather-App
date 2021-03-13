@@ -2,22 +2,14 @@ package com.ddona.appweather.ui.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
+import android.content.*
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.location.Location
 import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.*
 import android.util.Log
-import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -34,6 +26,7 @@ import com.ddona.appweather.R
 import com.ddona.appweather.databinding.ActivityMainBinding
 import com.ddona.appweather.model.CurrentWeather
 import com.ddona.appweather.model.List
+import com.ddona.appweather.service.NotifyBroardcast
 import com.ddona.appweather.service.WeatherService
 import com.ddona.appweather.ui.adapter.WeatherAdapter
 import com.google.android.gms.location.*
@@ -52,12 +45,14 @@ class MainActivity : AppCompatActivity(), WeatherAdapter.IWaether,
     private var connect: ServiceConnection? = null
     private var listWeather = mutableListOf<List>()
     private var cityName: String = ""
+    private lateinit var broadcast: NotifyBroardcast
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        broadcast = NotifyBroardcast()
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         getLastLocation()
         checkedInternet()
@@ -65,6 +60,17 @@ class MainActivity : AppCompatActivity(), WeatherAdapter.IWaether,
         binding.rc.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.rc.adapter = WeatherAdapter(this)
         binding.swipeRefreshLayout.setOnRefreshListener(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val intentFilter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        registerReceiver(broadcast, intentFilter)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(broadcast)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -78,7 +84,6 @@ class MainActivity : AppCompatActivity(), WeatherAdapter.IWaether,
                     } else {
                         latitude = location.latitude
                         longitude = location.longitude
-                        openServiceUnBound()
                         createConnectService(latitude, longitude)
                         register()
                     }
@@ -132,12 +137,10 @@ class MainActivity : AppCompatActivity(), WeatherAdapter.IWaether,
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 binding.tvAsk.isGone = true
                 binding.mainContainer.isVisible = true
-                binding.re1.isVisible = true
                 getLastLocation()
             } else {
                 binding.tvAsk.isVisible = true
                 binding.mainContainer.isGone = true
-                binding.re1.isGone = true
                 requestPermission()
             }
         }
@@ -168,11 +171,6 @@ class MainActivity : AppCompatActivity(), WeatherAdapter.IWaether,
     }
 
     // connect service
-    private fun openServiceUnBound() {
-        val intent = Intent()
-        intent.setClass(this, WeatherService::class.java)
-        startService(intent)
-    }
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun createConnectService(latitude: Double, longitude: Double) {
@@ -209,11 +207,6 @@ class MainActivity : AppCompatActivity(), WeatherAdapter.IWaether,
             }
             binding.rc.adapter!!.notifyDataSetChanged()
         })
-    }
-
-    override fun onDestroy() {
-        unbindService(connect!!)
-        super.onDestroy()
     }
 
     // update ui
@@ -283,11 +276,9 @@ class MainActivity : AppCompatActivity(), WeatherAdapter.IWaether,
         if (isOnline(this) == false) {
             binding.disconnect.isVisible = true
             binding.mainContainer.isGone = true
-            binding.re1.isGone = true
         } else {
             binding.disconnect.isGone = true
             binding.mainContainer.isVisible = true
-            binding.re1.isVisible = true
         }
     }
 
