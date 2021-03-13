@@ -19,35 +19,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:id="@+id/ll_1"
-                    android:layout_width="match_parent"
+                <SearchView
+                    android:id="@+id/sv"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/edt_search"
-                        android:layout_width="156dp"
-                        android:layout_height="38dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/background_edt"
-                        android:padding="4dp" />
-
-                    <ImageButton
-                        android:id="@+id/btn_search"
-                        android:layout_width="38dp"
-                        android:layout_height="38dp"
-                        android:layout_marginLeft="4dp"
-                        android:background="@drawable/ic_baseline_search_24" />
-
-                </LinearLayout>
+                    android:layout_marginTop="4dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/background_edt"
+                    android:queryBackground="@drawable/background_edt" />
 
                 <Space
                     android:id="@+id/sp"
                     android:layout_width="match_parent"
-                    android:layout_height="8dp"
-                    android:layout_below="@+id/ll_1" />
+                    android:layout_height="4dp"
+                    android:layout_below="@+id/sv" />
 
                 <LinearLayout
                     android:id="@+id/address_container"

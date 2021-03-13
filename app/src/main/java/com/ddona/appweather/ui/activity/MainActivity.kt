@@ -11,6 +11,7 @@ import android.net.NetworkCapabilities
 import android.os.*
 import android.util.Log
 import android.view.View
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -36,7 +37,7 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity(), WeatherAdapter.IWaether,
-    SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
+    SwipeRefreshLayout.OnRefreshListener, SearchView.OnQueryTextListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val PERMISSION_ID = 52
@@ -62,7 +63,22 @@ class MainActivity : AppCompatActivity(), WeatherAdapter.IWaether,
         binding.rc.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.rc.adapter = WeatherAdapter(this)
         binding.swipeRefreshLayout.setOnRefreshListener(this)
-        binding.btnSearch.setOnClickListener(this)
+        binding.sv.setOnQueryTextListener(this)
+    }
+
+    // search city name
+    override fun onQueryTextSubmit(text: String?): Boolean {
+        MyApp.weatherViewModel.getWeatherByName(text.toString())
+        MyApp.weatherViewModel.getIntervalWeatherByName(text.toString())
+        register()
+        return true
+    }
+
+    override fun onQueryTextChange(text: String?): Boolean {
+        MyApp.weatherViewModel.getWeatherByName(text.toString())
+        MyApp.weatherViewModel.getIntervalWeatherByName(text.toString())
+        register()
+        return true
     }
 
     override fun onStart() {
@@ -76,6 +92,7 @@ class MainActivity : AppCompatActivity(), WeatherAdapter.IWaether,
         unregisterReceiver(broadcast)
     }
 
+    // get current location
     @RequiresApi(Build.VERSION_CODES.M)
     private fun getLastLocation() {
         if (checkPermission()) {
@@ -301,16 +318,5 @@ class MainActivity : AppCompatActivity(), WeatherAdapter.IWaether,
                 repeatCall(lat, lon)
             }
         }.start()
-    }
-
-    override fun onClick(view: View) {
-        var name = binding.edtSearch.text.toString()
-        when (view.id) {
-            R.id.btn_search -> {
-                MyApp.weatherViewModel.getWeatherByName(name)
-                MyApp.weatherViewModel.getIntervalWeatherByName(name)
-                register()
-            }
-        }
     }
 }
