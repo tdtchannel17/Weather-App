@@ -51,35 +51,4 @@ class WeatherViewModel() : ViewModel() {
                 }
             )
     }
-
-    // Check weather by city name
-    @SuppressLint("CheckResult")
-    fun getWeatherByName(name: String) {
-        apiWeather.getWeatherByName(name)
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    dataWeather.value = it
-                },
-                {
-                    Log.e("Error !!!", "----------------- " + it + " -----------------")
-                }
-            )
-    }
-
-    @SuppressLint("CheckResult")
-    fun getIntervalWeatherByName(name: String) {
-        apiWeather.getIntervalWeatherByName(name)
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    listDataWeather.value = it
-                },
-                {
-                    Log.e("Error !!!", "----------------- " + it + " -----------------")
-                }
-            )
-    }
 }

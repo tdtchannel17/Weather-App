@@ -29,22 +29,4 @@ interface ApiWeather {
         @Query("cnt") cnt: Int = 7,
         @Query("APPID") APPID: String = "6d585f62409a79c557b9e54543e3031f"
     ): Observable<ListWeather>
-
-    // call api by name
-    @GET("/data/2.5/weather")
-    fun getWeatherByName(
-        @Query("q") q: String,
-        @Query("lang") lang: String = "en",
-        @Query("units") units: String = "metric",
-        @Query("APPID") APPID: String = "b0dc6be1752cbdafe881ea2a413811e4"
-    ): Observable<CurrentWeather>
-
-    @GET("/data/2.5/forecast")
-    fun getIntervalWeatherByName(
-        @Query("q") q: String,
-        @Query("lang") lang: String = "en",
-        @Query("units") units: String = "metric",
-        @Query("cnt") cnt: Int = 7,
-        @Query("APPID") APPID: String = "b0dc6be1752cbdafe881ea2a413811e4"
-    ): Observable<ListWeather>
 }

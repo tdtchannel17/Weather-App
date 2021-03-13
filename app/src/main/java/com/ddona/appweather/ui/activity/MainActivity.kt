@@ -286,10 +286,7 @@ class MainActivity : AppCompatActivity(), WeatherAdapter.IWaether,
     fun repeatCall(lat: Double?, lon: Double?) {
         object : CountDownTimer(600000, 300000) {
             override fun onTick(millisUntilFinished: Long) {
-                if (millisUntilFinished / 1000 > 0 && millisUntilFinished / 1000 <= 300) {
-                    MyApp.weatherViewModel.getWeatherByName(cityName)
-                    MyApp.weatherViewModel.getIntervalWeatherByName(cityName)
-                } else {
+                if (millisUntilFinished / 1000 > 300 || millisUntilFinished / 1000 <= 300) {
                     MyApp.weatherViewModel.getWeatherLocation(latitude, longitude)
                     MyApp.weatherViewModel.getIntervalWeather(latitude, longitude)
                 }
