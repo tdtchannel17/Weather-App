@@ -10,7 +10,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.*
 import android.util.Log
-import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
