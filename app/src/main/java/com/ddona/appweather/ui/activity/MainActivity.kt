@@ -29,6 +29,7 @@ import com.ddona.appweather.databinding.ActivityMainBinding
 import com.ddona.appweather.model.CurrentWeather
 import com.ddona.appweather.model.List
 import com.ddona.appweather.broardcast.NotifyBroardcast
+import com.ddona.appweather.service.NotificationService
 import com.ddona.appweather.service.WeatherService
 import com.ddona.appweather.ui.adapter.WeatherAdapter
 import com.google.android.gms.location.*
@@ -105,6 +106,7 @@ class MainActivity : AppCompatActivity(), WeatherAdapter.IWaether,
                         latitude = location.latitude
                         longitude = location.longitude
                         createConnectService(latitude, longitude)
+                        creatNotify(latitude, longitude)
                         register()
                     }
                 }
@@ -319,4 +321,12 @@ class MainActivity : AppCompatActivity(), WeatherAdapter.IWaether,
             }
         }.start()
     }
+
+    private fun creatNotify(latitude: Double, longitude: Double) {
+        val intent = Intent(this, NotificationService::class.java)
+        intent.putExtra("latitude", latitude)
+        intent.putExtra("longitude", longitude)
+        startService(intent)
+    }
+
 }

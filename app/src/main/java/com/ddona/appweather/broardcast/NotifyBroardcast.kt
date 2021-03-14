@@ -7,6 +7,9 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import com.ddona.appweather.R
 
 class NotifyBroardcast : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
