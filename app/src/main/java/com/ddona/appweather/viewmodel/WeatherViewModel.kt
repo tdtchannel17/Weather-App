@@ -9,6 +9,7 @@ import com.ddona.appweather.api.RetrofitUtils
 import com.ddona.appweather.model.CurrentWeather
 import com.ddona.appweather.model.ListWeather
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class WeatherViewModel() : ViewModel() {
@@ -52,9 +53,10 @@ class WeatherViewModel() : ViewModel() {
             )
     }
 
+    // search name
     @SuppressLint("CheckResult")
-    fun getWeatherByName(name: String) {
-        apiWeather.getWeatherByName(name)
+    fun getWeatherByName(name: String): Disposable {
+        val disposable = apiWeather.getWeatherByName(name)
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -65,11 +67,12 @@ class WeatherViewModel() : ViewModel() {
                     Log.e("Error !!!", "----------------- " + it + " -----------------")
                 }
             )
+        return disposable
     }
 
     @SuppressLint("CheckResult")
-    fun getIntervalWeatherByName(name: String) {
-        apiWeather.getIntervalWeatherByName(name)
+    fun getIntervalWeatherByName(name: String): Disposable {
+        val disposable = apiWeather.getIntervalWeatherByName(name)
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -81,5 +84,6 @@ class WeatherViewModel() : ViewModel() {
                     Log.e("Error !!!", "----------------- " + it + " -----------------")
                 }
             )
+        return disposable
     }
 }
